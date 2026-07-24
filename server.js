@@ -1,10 +1,22 @@
-var express = require("express");
-var app = express();
- 
-app.get("/", function(request, response) {
-  response.send("Hello World!");
+const express = require('express');
+
+const app = express();
+const PORT = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello, world!');
 });
- 
-app.listen(3001, function() {
-  console.log('Server running at http://localhost:3001');
+
+app.get('/user', (req, res) => {
+  const userId = req.query.id;
+
+  if (!userId) {
+    return res.status(400).send('The id query parameter is required.');
+  }
+
+  res.send(`User ID is ${userId}`);
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
